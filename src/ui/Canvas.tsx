@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -41,16 +42,19 @@ export function Canvas({ ground, slip, slices, onChangeGround, onChangeSlip }: C
   const changeGroundRef = useRef(onChangeGround)
   const changeSlipRef = useRef(onChangeSlip)
   const frameRef = useRef<Frame>(frameOf(ground, slip))
-  groundRef.current = ground
-  slipRef.current = slip
-  changeGroundRef.current = onChangeGround
-  changeSlipRef.current = onChangeSlip
+
+  useEffect(() => {
+    groundRef.current = ground
+    slipRef.current = slip
+    changeGroundRef.current = onChangeGround
+    changeSlipRef.current = onChangeSlip
+  }, [ground, slip, onChangeGround, onChangeSlip])
 
   const [selected, setSelected] = useState<Selection | null>(null)
-  const [dragging, setDragging] = useState(false)
+  const [frozenFrame, setFrozenFrame] = useState<Frame | null>(null)
 
   const liveFrame = useMemo(() => frameOf(ground, slip), [ground, slip])
-  const frame = dragging ? frameRef.current : liveFrame
+  const frame = frozenFrame ?? liveFrame
 
   const toSvg = (point: Point) => project(point, frame)
   const selectedPoint = selected
@@ -80,9 +84,10 @@ export function Canvas({ ground, slip, slices, onChangeGround, onChangeSlip }: C
     event.preventDefault()
     event.stopPropagation()
     svgRef.current?.focus()
-    frameRef.current = frameOf(groundRef.current, slipRef.current)
+    const nextFrame = frameOf(groundRef.current, slipRef.current)
+    frameRef.current = nextFrame
     setSelected({ kind, index })
-    setDragging(true)
+    setFrozenFrame(nextFrame)
 
     const move = (pointer: globalThis.PointerEvent) => {
       const model = clientToModel(pointer)
@@ -91,7 +96,7 @@ export function Canvas({ ground, slip, slices, onChangeGround, onChangeSlip }: C
     const up = () => {
       window.removeEventListener('pointermove', move)
       window.removeEventListener('pointerup', up)
-      setDragging(false)
+      setFrozenFrame(null)
     }
     window.addEventListener('pointermove', move)
     window.addEventListener('pointerup', up)
