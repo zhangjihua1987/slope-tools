@@ -5,23 +5,57 @@ body {
   background: #eef2ef;
 }
 
-.app {
+.app-shell {
   min-height: 100vh;
+  background: #eef2ef;
 }
 
-h1 {
-  margin: 20px 24px 12px;
-  font-size: 26px;
-  font-weight: 650;
+.app-header {
+  height: auto;
+  line-height: 1.45;
+  padding: 14px 24px 12px;
+  background: #f7faf8;
+  border-bottom: 1px solid #d5ddd8;
+}
+
+.app-header h3.ant-typography,
+.app-header .ant-typography {
+  color: #1c2421;
+}
+
+.app-header h3.ant-typography {
+  margin: 0 0 4px;
+}
+
+.app-body {
+  background: transparent;
+}
+
+.app-canvas {
+  padding: 16px 12px 12px 20px;
+  min-width: 0;
+}
+
+.app-sider {
+  background: #fff !important;
+  border-left: 1px solid #d5ddd8;
+  padding: 8px 16px 16px;
+  overflow: auto;
+}
+
+.app-results {
+  background: #fff;
+  border-top: 1px solid #d5ddd8;
+  padding: 8px 20px 20px;
 }
 
 .canvas-wrap {
-  margin: 0 24px 24px;
+  margin: 0;
 }
 
 .slope-canvas {
   width: 100%;
-  height: min(62vh, 560px);
+  height: min(52vh, 520px);
   display: block;
   border: 1px solid #d5ddd8;
   border-radius: 10px;
@@ -40,17 +74,32 @@ h1 {
   cursor: grab;
 }
 
-.canvas-hint,
-.geom-error {
-  margin: 8px 4px 0;
+.canvas-hint {
+  margin: 8px 2px 0;
+  color: #52605a;
   font-size: 13px;
   line-height: 1.5;
 }
 
-.canvas-hint {
-  color: #52605a;
+.params-panel .ant-form-item {
+  margin-bottom: 12px;
 }
 
-.geom-error {
-  color: #a32020;
+.params-note {
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.fs-value {
+  margin: 4px 0 12px;
+}
+
+.fs-meta {
+  margin-left: 12px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.app-results .ant-table-cell {
+  font-variant-numeric: tabular-nums;
 }
