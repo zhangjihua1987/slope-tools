@@ -1,14 +1,105 @@
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
+  color: #1c2421;
+  background: #eef2ef;
 }
 
-.app {
+.app-shell {
   min-height: 100vh;
+  background: #eef2ef;
 }
 
-h1 {
-  margin: 24px;
-  font-size: 28px;
-  font-weight: 600;
+.app-header {
+  height: auto;
+  line-height: 1.45;
+  padding: 14px 24px 12px;
+  background: #f7faf8;
+  border-bottom: 1px solid #d5ddd8;
+}
+
+.app-header h3.ant-typography,
+.app-header .ant-typography {
+  color: #1c2421;
+}
+
+.app-header h3.ant-typography {
+  margin: 0 0 4px;
+}
+
+.app-body {
+  background: transparent;
+}
+
+.app-canvas {
+  padding: 16px 12px 12px 20px;
+  min-width: 0;
+}
+
+.app-sider {
+  background: #fff !important;
+  border-left: 1px solid #d5ddd8;
+  padding: 8px 16px 16px;
+  overflow: auto;
+}
+
+.app-results {
+  background: #fff;
+  border-top: 1px solid #d5ddd8;
+  padding: 8px 20px 20px;
+}
+
+.canvas-wrap {
+  margin: 0;
+}
+
+.slope-canvas {
+  width: 100%;
+  height: min(52vh, 520px);
+  display: block;
+  border: 1px solid #d5ddd8;
+  border-radius: 10px;
+  background: #f3f6f4;
+  touch-action: none;
+  user-select: none;
+  cursor: default;
+}
+
+.slope-canvas:focus {
+  outline: 2px solid #1f7a4d;
+  outline-offset: 2px;
+}
+
+.slope-canvas circle {
+  cursor: grab;
+}
+
+.canvas-hint {
+  margin: 8px 2px 0;
+  color: #52605a;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.params-panel .ant-form-item {
+  margin-bottom: 12px;
+}
+
+.params-note {
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.fs-value {
+  margin: 4px 0 12px;
+}
+
+.fs-meta {
+  margin-left: 12px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.app-results .ant-table-cell {
+  font-variant-numeric: tabular-nums;
 }
