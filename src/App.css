@@ -1,6 +1,8 @@
 body {
   margin: 0;
   font-family: system-ui, sans-serif;
+  color: #1c2421;
+  background: #eef2ef;
 }
 
 .app {
@@ -8,7 +10,47 @@ body {
 }
 
 h1 {
-  margin: 24px;
-  font-size: 28px;
-  font-weight: 600;
+  margin: 20px 24px 12px;
+  font-size: 26px;
+  font-weight: 650;
+}
+
+.canvas-wrap {
+  margin: 0 24px 24px;
+}
+
+.slope-canvas {
+  width: 100%;
+  height: min(62vh, 560px);
+  display: block;
+  border: 1px solid #d5ddd8;
+  border-radius: 10px;
+  background: #f3f6f4;
+  touch-action: none;
+  user-select: none;
+  cursor: default;
+}
+
+.slope-canvas:focus {
+  outline: 2px solid #1f7a4d;
+  outline-offset: 2px;
+}
+
+.slope-canvas circle {
+  cursor: grab;
+}
+
+.canvas-hint,
+.geom-error {
+  margin: 8px 4px 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.canvas-hint {
+  color: #52605a;
+}
+
+.geom-error {
+  color: #a32020;
 }
