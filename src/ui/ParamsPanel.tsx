@@ -1,4 +1,4 @@
-import { Form, InputNumber, Switch, Typography } from 'antd'
+import { Button, Form, InputNumber, Space, Switch, Typography } from 'antd'
 import type { LoadOptions, Material } from '../types/calc'
 
 export type ParamsPanelProps = {
@@ -6,9 +6,22 @@ export type ParamsPanelProps = {
   loads: LoadOptions
   onMaterial: (material: Material) => void
   onLoads: (loads: LoadOptions) => void
+  onCopyVertices: () => void
+  onDownloadVertices: () => void
+  onDownloadSlices: () => void
+  slicesReady: boolean
 }
 
-export function ParamsPanel({ material, loads, onMaterial, onLoads }: ParamsPanelProps) {
+export function ParamsPanel({
+  material,
+  loads,
+  onMaterial,
+  onLoads,
+  onCopyVertices,
+  onDownloadVertices,
+  onDownloadSlices,
+  slicesReady,
+}: ParamsPanelProps) {
   return (
     <div className="params-panel">
       <Typography.Title level={5}>材料（整坡统一）</Typography.Title>
@@ -77,6 +90,18 @@ export function ParamsPanel({ material, loads, onMaterial, onLoads }: ParamsPane
       <Typography.Paragraph type="secondary" className="params-note">
         开关关闭时对应的 Q、V、Ub 为 0。外力 P 固定为 0。αw 与水压力比例只在开关打开后进入计算。
       </Typography.Paragraph>
+      <Typography.Title level={5}>导出（Excel 对算）</Typography.Title>
+      <Space direction="vertical" style={{ width: '100%' }}>
+        <Button block onClick={onCopyVertices}>
+          复制顶点坐标
+        </Button>
+        <Button block onClick={onDownloadVertices}>
+          下载顶点 CSV
+        </Button>
+        <Button block disabled={!slicesReady} onClick={onDownloadSlices}>
+          下载条块表 CSV
+        </Button>
+      </Space>
     </div>
   )
 }

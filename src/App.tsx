@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
-import { Layout, Typography } from 'antd'
+import { App as AntdApp, Layout, Typography } from 'antd'
 import 'antd/dist/reset.css'
 import './App.css'
 import { solveA1 } from './calc/a1'
+import { formatSliceTableCsv, formatVerticesCsv } from './export/coords'
 import { defaultGround, defaultLoads, defaultMaterial, defaultSlip } from './demo/defaultModel'
 import { buildSlices } from './geometry/slices'
 import { Canvas } from './ui/Canvas'
@@ -10,6 +11,15 @@ import { ParamsPanel } from './ui/ParamsPanel'
 import { ResultsTable } from './ui/ResultsTable'
 
 function App() {
+  return (
+    <AntdApp>
+      <SlopeDemo />
+    </AntdApp>
+  )
+}
+
+function SlopeDemo() {
+  const { message } = AntdApp.useApp()
   const [ground, setGround] = useState(defaultGround)
   const [slip, setSlip] = useState(defaultSlip)
   const [material, setMaterial] = useState(defaultMaterial)
@@ -20,6 +30,26 @@ function App() {
     if (!geom.ok) return null
     return solveA1(geom.slices, material, loads)
   }, [geom, material, loads])
+
+  const verticesCsv = useMemo(() => formatVerticesCsv(ground, slip), [ground, slip])
+
+  async function copyVertices() {
+    try {
+      await navigator.clipboard.writeText(verticesCsv)
+      message.success('已复制顶点坐标')
+    } catch {
+      message.error('复制失败，请改用下载')
+    }
+  }
+
+  function downloadVertices() {
+    downloadText('vertices.csv', verticesCsv)
+  }
+
+  function downloadSlices() {
+    if (!result?.ok) return
+    downloadText('slices.csv', formatSliceTableCsv(result))
+  }
 
   return (
     <Layout className="app-shell">
@@ -45,6 +75,12 @@ function App() {
             loads={loads}
             onMaterial={setMaterial}
             onLoads={setLoads}
+            onCopyVertices={() => {
+              void copyVertices()
+            }}
+            onDownloadVertices={downloadVertices}
+            onDownloadSlices={downloadSlices}
+            slicesReady={result?.ok === true}
           />
         </Layout.Sider>
       </Layout>
@@ -53,6 +89,16 @@ function App() {
       </section>
     </Layout>
   )
+}
+
+function downloadText(filename: string, text: string) {
+  const blob = new Blob([text], { type: 'text/csv;charset=utf-8' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = filename
+  link.click()
+  URL.revokeObjectURL(url)
 }
 
 export default App
