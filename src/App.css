@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+}
+
+.app {
+  min-height: 100vh;
+}
+
+h1 {
+  margin: 24px;
+  font-size: 28px;
+  font-weight: 600;
+}
