@@ -14,4 +14,4 @@
 
 React、TypeScript、Vite、Ant Design、Vitest、vite-plugin-singlefile。
 
-设计与实现计划见 `docs/superpowers/specs/` 与 `docs/superpowers/plans/`。
+设计与实现计划见 `docs/superpowers/specs/` 与 `docs/superpowers/plans/`；依据规范文档见 `docs/references/GB-T-38509-2020-滑坡防治设计规范.pdf`。
